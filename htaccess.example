@@ -1,0 +1,61 @@
+RewriteEngine On
+
+CheckSpelling On
+CheckCaseOnly On
+RewriteBase /
+<Files xmlrpc.php>
+order deny,allow
+deny from all
+allow from localhost
+</Files>
+<Files wp-login.php>
+order deny,allow
+deny from all
+allow from localhost
+</Files>
+<Files gzip.php>
+order deny,allow
+deny from all
+allow from localhost
+</Files>
+
+
+
+
+
+
+<FilesMatch "\\.(ico|jpeg|jpg|png|gif|css|js)$">
+Header set Cache-Control "max-age=860000, public"
+</FilesMatch>
+
+<FilesMatch "\\.(js|css|html|htm|php|xml)$">
+SetOutputFilter DEFLATE
+</FilesMatch>
+RewriteCond %{REQUEST_URI} ^[^\.]+[^/]$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+RewriteCond %{HTTP_HOST} .
+
+
+
+# altes-magazin-weiterleitungen-all-except-all-guides
+####Redirect Gone
+Redirect Gone /gzip.php
+Redirect Gone /wp-content/themes/responz/themify/img.php
+Redirect Gone /wp-login.php
+Redirect Gone /xmlrpc.php
+Redirect Gone /wp-content/themes/responz/js/jquery.prettyPhoto.js
+Redirect Gone /wp-includes/js/jquery/jquery.js
+Redirect Gone /people/page/5/
+
+
+
+
+########################################################################
+Redirect 301 /fooobarto/ https://www.google.com
+
+
+
+
