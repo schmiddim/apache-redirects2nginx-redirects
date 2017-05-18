@@ -1,6 +1,4 @@
-lines = [line.rstrip('\n') for line in open('htaccess.example')]
 
-routes = []
 
 
 def is_redirect_rule(line):
@@ -40,14 +38,17 @@ def get_destination(line):
     return words[3]
 
 
+#######################################################
+lines = [line.rstrip('\n') for line in open('htaccess')]
+routes = []
+
 for line in lines:
     if is_redirect_rule(line):
         status_code = get_status_code(line)
         route = get_route(line)
-        # print(status_code + " "+ route + "  "           +get_destination(line)+ " |" + line)
         str_redirect = """
 location {} {{
-    rewrite ^(.*)$  {};
+    rewrite ^(.*)$  {} permanent;
 }} """
         str_gone = """
 location {} {{
